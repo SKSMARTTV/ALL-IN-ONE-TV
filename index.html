@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.css" />
     <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.12/dist/plyr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.4/dist/hls.min.js"></script>
-<link rel="me" href="https://t.me/bdix_hub" />
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+    <link rel="me" href="https://t.me/bdix_hub" />
+    <meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+    <meta name='google-adsense-platform-domain' content='blogspot.com'/>
 </head>
 
 <body>
@@ -37,22 +37,12 @@
             <source id="videoSource" type="application/vnd.apple.mpegurl" src="">
         </video>
     </div>
-    <div class="col-md-12">
-<style> 
-.notice-movies{margin-top:3px;background:#ff0000;color:white;position:relative;padding:10px;overflow:hidden;font-family:var(--font-secondary);border-radius:7px}.notice-movies::before{content:'';position:absolute;border-left:17px solid var(--black);border-bottom:17px solid var(--black);border-top:17px solid transparent;border-right:17px solid transparent;left:98px;top:0;z-index:1}.notice-movies::after{content:'Notice:';position:absolute;height:100%;padding:0 6px;line-height:43px;background:Green;color:white;font-family:var(--font-primary);font-weight:600;left:0;top:0} </style>
-<center>
-     <marquee class="notice-movies" scrollamount="4">
-       ➤ ALL IN ONE TV তে  আপনাকে স্বাগতম Welcome To ALL IN ONE TV প্রিয় গ্রাহক আপনার অবগতির জন্য জানানো যাচ্ছে যে আমাদের এই ওয়েবসাইটির কাজ চলছে তাই টিভি দেখতে কিছু চ্যানেল সমস্যা করতে পারে আমাদের এক্সপার্ট টিম বিষয়টি পর্যবেক্ষণ করছেন ধন্যবাদ....?
-     </marquee>
-</center>
-    </div>
     
-        <div id="channelLoading" class="loading">
-            <p>Loading channels...</p>
-        </div>
-        <div class="channel-buttons" id="channelList" style="display: none;">
-            <!-- Channels will be dynamically loaded here -->
-        </div>
+    <div id="channelLoading" class="loading">
+        <p>Loading channels...</p>
+    </div>
+    <div class="channel-buttons" id="channelList" style="display: none;">
+        <!-- Channels will be dynamically loaded here -->
     </div>
 
     <script>
@@ -80,7 +70,9 @@
         });
 
         function loadVideo(sourceUrl) {
-            if (Hls.isSupported()) {
+            const extension = sourceUrl.split('.').pop().toLowerCase();
+            
+            if (extension === 'm3u8' && Hls.isSupported()) {
                 if (window.hls) {
                     window.hls.destroy();
                 }
@@ -88,8 +80,10 @@
                 hls.loadSource(sourceUrl);
                 hls.attachMedia(video);
                 window.hls = hls;
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            } else if (extension === 'mp4' || extension === 'mkv') {
                 video.src = sourceUrl;
+            } else {
+                alert("Unsupported video format!");
             }
             video.play();
         }
@@ -163,7 +157,6 @@
             justify-content: center;
         }
 
-        /* Custom Text Styling */
         .custom-text {
             margin-top: 20px;
             text-align: center;
@@ -218,23 +211,6 @@
             text-align: center;
         }
 
-        .channel-list {
-            background-color: #2b2b2b;
-            padding: 20px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 900px;
-            text-align: center;
-        }
-
-        .channel-list h2 {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
         .channel-buttons {
             display: flex;
             justify-content: space-around;
@@ -285,6 +261,7 @@
             }
         }
     </style>
+
     <!-- Footer -->
     <div class="footer">
         <p>© 2024 ALL IN ONE TV. All rights reserved.</p>
@@ -292,4 +269,4 @@
     </div>
 </body>
 
-  </html>
+</html>
